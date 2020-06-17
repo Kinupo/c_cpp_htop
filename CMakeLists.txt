@@ -5,7 +5,7 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIRS})
 
 include_directories(include)
-file(GLOB SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/main/*.cpp")
 
 add_executable(monitor ${SOURCES})
 
