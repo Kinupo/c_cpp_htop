@@ -1,12 +1,12 @@
-#ifndef PROCESS_H
-#define PROCESS_H
+#ifndef PROCESS_STATUS_H
+#define PROCESS_STATUS_H
 
 #include <string>
 /*
 Basic class for Process representation
 It contains relevant attributes as shown below
 */
-class Process {
+class ProcessStatus {
  public:
   int Pid();                               // TODO: See src/process.cpp
   std::string User();                      // TODO: See src/process.cpp

@@ -1,10 +1,22 @@
 // #include "system/display/ncurses_display.h"
 // #include "system/status/system.h"
+#include "system/monitor_factory.h"
+
 #include <curses.h>
 #include <thread>
 #include <chrono>
+#include <memory>
+
+std::shared_ptr<SystemMonitor> BuildSystemMonitor(){
+  MonitorFactory monitorFactory;
+  return monitorFactory.BuildSystemMonitor();
+}
 
 int main() {
+
+  auto system_monitor = BuildSystemMonitor();
+
+  auto system_status = system_monitor->Status();
 
   initscr();      // start ncurses
   noecho();       // do not print input values
@@ -33,6 +45,8 @@ int main() {
         top_of_next_window, //y_pos top left
         0); //x_pos top left
 
+
+  mvwprintw(system_window, 1, 6, system_status->operatingSystemStatus()->Name().c_str());
   while(1){
       box(system_window, 0, 0);
     box(process_window, 0, 0);
