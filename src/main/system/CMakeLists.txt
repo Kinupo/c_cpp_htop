@@ -16,3 +16,5 @@ target_sources(
 
 add_subdirectory(status)
 add_subdirectory(operating_system)
+add_subdirectory(cpu)
+add_subdirectory(memory)

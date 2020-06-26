@@ -6,7 +6,7 @@ SystemStatus::SystemStatus(
 
 };
 
-const std::shared_ptr<OperatingSystemStatus> SystemStatus::operatingSystemStatus(){
+const std::shared_ptr<OperatingSystemStatus> SystemStatus::OperatingSystem(){
     return operating_system_status;
 }
 

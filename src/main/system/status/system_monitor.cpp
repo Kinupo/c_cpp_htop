@@ -11,6 +11,6 @@ std::shared_ptr<SystemStatus> SystemMonitor::Status(){
 
 std::shared_ptr<SystemStatus> SystemMonitor::Status(std::shared_ptr<SystemStatus> prior_status){
     return std::make_shared<SystemStatus>(
-        operating_system_monitor->Status(prior_status->operatingSystemStatus())
+        operating_system_monitor->Status(prior_status->OperatingSystem())
     );
 };

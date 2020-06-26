@@ -1,61 +1,63 @@
 // #include "system/display/ncurses_display.h"
 // #include "system/status/system.h"
 #include "system/monitor_factory.h"
+#include "terminal_ui/terminal_ui.h"
 
 #include <curses.h>
 #include <thread>
 #include <chrono>
 #include <memory>
 
+#include <map>
+
+std::map<std::string, WINDOW*> CreateWindows(TerminalUi &terminal_ui){
+  
+  int number_of_data_rows{7};
+  int numberOfBorderRows{2};
+
+  auto system_window = terminal_ui.CreateWindow(
+      number_of_data_rows + numberOfBorderRows, 
+      -1);
+  auto process_window = terminal_ui.CreateWindowBelow(
+    system_window, 
+    -1, 
+    -1);
+
+  std::map<std::string, WINDOW*> windows;
+  windows.insert(std::pair<std::string, WINDOW*>{"Process", process_window});
+  windows.insert(std::pair<std::string, WINDOW*>{"System", system_window});
+  return windows;
+}
+
 std::shared_ptr<SystemMonitor> BuildSystemMonitor(){
   MonitorFactory monitorFactory;
   return monitorFactory.BuildSystemMonitor();
 }
 
+std::unique_ptr<TerminalUi> BuildTerminalUi(){
+  return std::unique_ptr<TerminalUi>(new TerminalUi());
+}
+
 int main() {
 
   auto system_monitor = BuildSystemMonitor();
-
   auto system_status = system_monitor->Status();
 
-  initscr();      // start ncurses
-  noecho();       // do not print input values
-  cbreak();       // terminate ncurses on ctrl + c
-  start_color();  // enable color
-  curs_set(0);    // hide cursor
+  auto terminal_ui = BuildTerminalUi();
+  terminal_ui->InitilizeTerminal();
 
-  int terminal_width{getmaxx(stdscr)};
-  int number_of_terminal_lines{getmaxy(stdscr)};
-  int number_of_data_rows{7};
-  int numberOfBorderRows{2};
-  int numberOfHeaderRows{1};
-  int numberOfDataRows{10};
-  int window_buffer{1};
+  auto windows = CreateWindows(*terminal_ui);
 
-  WINDOW* system_window = newwin(
-    number_of_data_rows + numberOfBorderRows, 
-    terminal_width - 1, //-1: 0 index adjustment
-    0, 
-    0);
-  int top_of_next_window{system_window->_maxy +1};
-  WINDOW* process_window =
-      newwin(
-        number_of_terminal_lines - system_window->_maxy -(1 + window_buffer) , //height; -1: 0 index adjustment
-        terminal_width - 1, //width; -1: 0 index adjustment
-        top_of_next_window, //y_pos top left
-        0); //x_pos top left
-
-
-  mvwprintw(system_window, 1, 6, system_status->operatingSystemStatus()->Name().c_str());
+  box(windows.find("System")->second, 0, 0);
+  mvwprintw(windows.find("System")->second, 0, 6, "System");
+  
+  box(windows.find("Process")->second, 0, 0);
+  
   while(1){
-      box(system_window, 0, 0);
-    box(process_window, 0, 0);
-    mvwprintw(system_window, 0, 6, "System");
-    wnoutrefresh(system_window);
-    wnoutrefresh(process_window);
-    doupdate();
+    mvwprintw(windows.find("System")->second, 1, 6, system_status->OperatingSystem()->Name().c_str());
+    terminal_ui->DrawWindows(windows);
     std::this_thread::sleep_for(std::chrono::seconds(1));
+    system_status = system_monitor->Status(system_status);
   }
-
   return 0;
 }

@@ -12,7 +12,7 @@ class SystemStatus{
     public:
         SystemStatus(const std::shared_ptr<OperatingSystemStatus> operating_system_status);
 
-        const std::shared_ptr<OperatingSystemStatus> operatingSystemStatus();
+        const std::shared_ptr<OperatingSystemStatus> OperatingSystem();
 };
 
 #endif
