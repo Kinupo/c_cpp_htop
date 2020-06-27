@@ -7,8 +7,6 @@
 #include <memory>
 
 class ProcessMonitor : public StatusMonitor<std::unique_ptr<ProcessesStatus>>{
-    private:
-        /* data */
     public:
         std::unique_ptr<ProcessesStatus> status();
         std::unique_ptr<ProcessesStatus> status(std::unique_ptr<ProcessesStatus>);

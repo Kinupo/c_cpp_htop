@@ -30,7 +30,9 @@ target_link_libraries(
         systemMonitorLib
         status_monitor_lib
         operating_system_lib
-        terminal_lib
         cpu_lib
         memory_lib
-    )
+        terminal_lib
+        uptime_lib
+        user_lib
+)

@@ -1,9 +1,8 @@
-@import "process/process_monitor.h"
+#include "system/process/process_monitor.h"
 
-process_monitor::process_monitor(/* args */)
-{
-}
+std::unique_ptr<ProcessesStatus> ProcessMonitor::status(){
 
-process_monitor::~process_monitor()
-{
-}
+};
+std::unique_ptr<ProcessesStatus> ProcessMonitor::status(std::unique_ptr<ProcessesStatus>){
+    
+};

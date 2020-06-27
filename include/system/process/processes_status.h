@@ -5,8 +5,7 @@
 
 #include <vector>
 /*
-Basic class for Process representation
-It contains relevant attributes as shown below
+* Contains processes information and an unsorted collection of running processes.
 */
 class ProcessesStatus {
   private:
@@ -14,9 +13,13 @@ class ProcessesStatus {
    const int number_of_processes;
    const std::vector<ProcessStatus> running_processes;
   public:
-    int NumberOfRunningProcesses();
-    int NumberOfProcesses();
-    std::vector<ProcessesStatus> RunningProcesses();
+    ProcessesStatus(
+      const int number_of_running_processes, 
+      const int number_of_processes,
+      const std::vector<ProcessStatus> running_processes);
+    const int NumberOfRunningProcesses();
+    const int NumberOfProcesses();
+    const std::vector<ProcessStatus> RunningProcesses();
 };
 
 #endif

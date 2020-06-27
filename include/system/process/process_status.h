@@ -1,23 +1,24 @@
 #ifndef PROCESS_STATUS_H
 #define PROCESS_STATUS_H
 
+#include "system/user/user.h"
+
 #include <string>
-/*
-Basic class for Process representation
-It contains relevant attributes as shown below
-*/
+#include <memory>
+
 class ProcessStatus {
  public:
-  int Pid();                               // TODO: See src/process.cpp
-  std::string User();                      // TODO: See src/process.cpp
-  std::string Command();                   // TODO: See src/process.cpp
-  float CpuUtilization();                  // TODO: See src/process.cpp
-  std::string Ram();                       // TODO: See src/process.cpp
-  long int UpTime();                       // TODO: See src/process.cpp
-  bool operator<(Process const& a) const;  // TODO: See src/process.cpp
+  const int Pid();
+  std::shared_ptr<User>  User();
+  const std::string Command();
+  const float CpuUtilization();
+  //in MB
+  const float Memory();
+  const long int Uptime();
 
-  // TODO: Declare any necessary private members
- private:
+  //sort by cpu utilization
+  bool operator<(ProcessStatus const& other_process) const;  
+
 };
 
 #endif
