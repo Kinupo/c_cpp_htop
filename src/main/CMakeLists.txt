@@ -35,4 +35,5 @@ target_link_libraries(
         terminal_lib
         uptime_lib
         user_lib
+        processes_monitor_lib
 )

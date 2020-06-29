@@ -1,12 +1,13 @@
 #include "system/monitor_factory.h"
-// #include "system/process/process_monitor.h"
 
-// ProcessMonitor *MonitorFactory::processMonitor(){
-//     return new ProcessMonitor();
-// }
+std::shared_ptr<ProcessesMonitor> MonitorFactory::BuildProcessesMonitor(){
+    return std::make_shared<ProcessesMonitor>();
+}
 
 std::shared_ptr<SystemMonitor> MonitorFactory::BuildSystemMonitor(){
-    return std::make_shared<SystemMonitor>(MonitorFactory::BuildOperatingSystemMonitor());
+    return std::make_shared<SystemMonitor>(
+        MonitorFactory::BuildOperatingSystemMonitor(),
+        MonitorFactory::BuildProcessesMonitor());
 };
 
 std::shared_ptr<OperatingSystemMonitor> MonitorFactory::BuildOperatingSystemMonitor(){

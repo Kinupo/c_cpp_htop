@@ -1,6 +1,5 @@
 #include "system/process/process_status.h"
 
-
 const int ProcessStatus::Pid() { return 0; }
 
 const float ProcessStatus::CpuUtilization() { return 0; }
@@ -9,7 +8,7 @@ const std::string ProcessStatus::Command() { return std::string(); }
 
 const float ProcessStatus::Memory() { return 0.0; }
 
-std::shared_ptr<User> ProcessStatus::User() { return nullptr; }
+std::shared_ptr<User> ProcessStatus::Owner() { return nullptr; }
 
 const long int ProcessStatus::Uptime() { return 0; }
 
