@@ -12,5 +12,5 @@ target_sources(
     PRIVATE
         processors_status.cpp
         processors_monitor.cpp
-        ${INCLUDE_PATH}/system/cpu/processors_status.h
-        ${INCLUDE_PATH}/system/cpu/processors_monitor.h)
+        ${INCLUDE_PATH}/system/component/cpu/processors_status.h
+        ${INCLUDE_PATH}/system/component/cpu/processors_monitor.h)

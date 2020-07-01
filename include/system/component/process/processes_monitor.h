@@ -2,17 +2,17 @@
 #define PROCESS_MONITOR_H
 
 #include "system/status_monitor.h"
-#include "system/process/processes_status.h"
+#include "system/component/process/processes_status.h"
 #include "system/component/component_monitor.h"
 
 #include <memory>
 
-class ProcessesMonitor : public StatusMonitor<std::unique_ptr<ProcessesStatus>>, ComponentMonitor{
+class ProcessesMonitor : public ComponentMonitor{
     private:
         const ComponentType componentType = kProcesses;
     public:
-        std::unique_ptr<ProcessesStatus> status();
-        std::unique_ptr<ProcessesStatus> status(std::unique_ptr<ProcessesStatus>);
+        std::shared_ptr<ComponentStatus> Status();
+        std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status);
         ComponentType ComponentMonitored();
 };
 

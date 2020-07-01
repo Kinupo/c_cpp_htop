@@ -5,12 +5,12 @@
 #include "system/status_monitor.h"
 #include "system/component/cpu/processors_status.h"
 
-class ProcessorMonitor : public StatusMonitor<std::shared_ptr<ProcessorsStatus>>, ComponentMonitor {
+class ProcessorsMonitor : public ComponentMonitor {
     private:
         const ComponentType componentType = kCpu;
     public:
-        std::shared_ptr<ProcessorsStatus> Status();
-        std::shared_ptr<ProcessorsStatus> Status(std::shared_ptr<ProcessorsStatus> prior_status);
+        std::shared_ptr<ComponentStatus> Status();
+        std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status);
         ComponentType ComponentMonitored();
 };
 

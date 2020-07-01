@@ -1,13 +1,15 @@
 #include "system/status/system_status.h"
 
-SystemStatus::SystemStatus(
-    const std::shared_ptr<OperatingSystemStatus> operating_system_status_
-    ) : operating_system_status(operating_system_status_) {
-
-};
-
-const std::shared_ptr<OperatingSystemStatus> SystemStatus::OperatingSystem(){
-    return operating_system_status;
+SystemStatus::SystemStatus(std::vector<std::shared_ptr<ComponentStatus>> component_statuses){
+    for(auto status:component_statuses){
+        statuses.insert(std::make_pair(kCpu, status));
+    }
 }
 
-// ProcessorsStatus *processors_status,
+const std::shared_ptr<ComponentStatus> SystemStatus::Component(const ComponentType component){
+    auto component_status_pair = statuses.find(component);
+    if(component_status_pair != statuses.end())
+        return component_status_pair->second;
+    else
+        return nullptr;
+}

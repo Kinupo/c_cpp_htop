@@ -10,6 +10,8 @@
 
 #include <map>
 
+#include <iostream>
+
 std::map<std::string, WINDOW*> CreateWindows(TerminalUi &terminal_ui){
   
   int number_of_data_rows{7};
@@ -42,22 +44,28 @@ int main() {
 
   auto system_monitor = BuildSystemMonitor();
   auto system_status = system_monitor->Status();
-
-  auto terminal_ui = BuildTerminalUi();
-  terminal_ui->InitilizeTerminal();
-
-  auto windows = CreateWindows(*terminal_ui);
-
-  box(windows.find("System")->second, 0, 0);
-  mvwprintw(windows.find("System")->second, 0, 6, "System");
+  auto puff = std::dynamic_pointer_cast<OperatingSystemStatus>(system_status->Component(kOperatingSystem));
+  std::cout << (system_status->Component(kOperatingSystem) == nullptr ? "os is null" : puff->Name()) << "\n";
   
-  box(windows.find("Process")->second, 0, 0);
+  // auto terminal_ui = BuildTerminalUi();
+  // terminal_ui->InitilizeTerminal();
+
+  // auto windows = CreateWindows(*terminal_ui);
+
+  // box(windows.find("System")->second, 0, 0);
+  // mvwprintw(windows.find("System")->second, 0, 6, "System");
   
-  while(1){
-    mvwprintw(windows.find("System")->second, 1, 6, system_status->OperatingSystem()->Name().c_str());
-    terminal_ui->DrawWindows(windows);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    system_status = system_monitor->Status(system_status);
-  }
+  // box(windows.find("Process")->second, 0, 0);
+  
+  // while(1){
+  //   auto xxxx = system_status->Component(kOperatingSystem);
+  //   std::shared_ptr<OperatingSystemStatus> oss = std::dynamic_pointer_cast<OperatingSystemStatus>(system_status->Component(kOperatingSystem));
+
+  //   mvwprintw(windows.find("System")->second, 1, 6, xxxx == nullptr ? "yes" : "no");
+  //   // OperatingSystem()->Name().c_str());
+  //   terminal_ui->DrawWindows(windows);
+  //   std::this_thread::sleep_for(std::chrono::seconds(1));
+  //   // system_status = system_monitor->Status(system_status);
+  // }
   return 0;
 }

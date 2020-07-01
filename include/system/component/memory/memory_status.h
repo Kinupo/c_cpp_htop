@@ -10,9 +10,9 @@ class MemoryStatus : public ComponentStatus{
         const ComponentType componentType = kMemory;
     public:
         MemoryStatus(const int total, const int used);
-        const ComponentType Component();
+        ComponentType Component();
         //as percentage 
-        const float Utilization();
+        float Utilization();
 };
 
 #endif

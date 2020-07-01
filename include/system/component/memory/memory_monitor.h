@@ -7,12 +7,12 @@
 
 #include <memory>
 
-class MemoryMonitor : public StatusMonitor<std::shared_ptr<MemoryStatus>>, ComponentMonitor {
+class MemoryMonitor : public ComponentMonitor {
     private:
         const ComponentType componentType = kMemory;
     public:
-        std::shared_ptr<MemoryStatus> Status();
-        std::shared_ptr<MemoryStatus> Status(std::shared_ptr<MemoryStatus> prior_status);
+        std::shared_ptr<ComponentStatus> Status();
+        std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status);
         ComponentType ComponentMonitored();
 };
 

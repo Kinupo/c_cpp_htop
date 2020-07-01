@@ -8,7 +8,6 @@
 
 class PropertyFileReader{
     public:
-        PropertyFileReader();
         //returns map <key, value>
         //expected line format is key=value or key:value
         std::shared_ptr<std::vector<std::vector<std::string>>> MapFile(const std::string path);

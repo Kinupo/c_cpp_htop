@@ -9,7 +9,7 @@ class Uptime : public ComponentStatus{
         const ComponentType componentType = kUptime;
     public:
         Uptime(const float uptime);
-        const ComponentType Component();
+        ComponentType Component();
 };
 
 #endif

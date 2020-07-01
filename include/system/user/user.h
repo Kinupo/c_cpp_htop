@@ -9,7 +9,7 @@ class User{
         const std::string name;
     public:
         User(const int id, const std::string name);
-        const int Id();
+        int Id();
         const std::string Name();
 };
 

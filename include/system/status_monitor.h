@@ -1,11 +1,14 @@
 #ifndef STATUS_MONITOR_H
 #define STATUS_MONITOR_H
 
-template <typename T>
+#include "system/component/component_status.h"
+
+#include <memory>
+
 class StatusMonitor{
     public:
-        virtual T Status() = 0;
-        virtual T Status(T prior_status) = 0;
+        virtual std::shared_ptr<ComponentStatus> Status() = 0;
+        virtual std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status) = 0;
 };
 
 #endif

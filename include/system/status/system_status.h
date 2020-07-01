@@ -4,16 +4,16 @@
 #include "system/component/component_status.h"
 #include "system/component/component_type.h"
 
-#include <cstdarg>
 #include <memory>
 #include <map>
+#include <vector>
 
 class SystemStatus{
     private:
-        const std::map<ComponentType,std::shared_ptr<ComponentStatus>> statuses;
+        std::map<ComponentType,std::shared_ptr<ComponentStatus>> statuses;
     public:
-        SystemStatus(const std::shared_ptr<ComponentStatus> component_status, ...);
-        const std::shared_ptr<ComponentStatus> ComponentStatus(const ComponentType component);
+        SystemStatus(std::vector<std::shared_ptr<ComponentStatus>> component_statuses);
+        const std::shared_ptr<ComponentStatus> Component(const ComponentType component);
 };
 
 #endif

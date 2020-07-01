@@ -8,13 +8,13 @@
 
 #include <memory>
 #include <map>
-#include <cstdarg>
+#include <vector>
 
-class SystemMonitor : public StatusMonitor<std::shared_ptr<SystemStatus>>{
+class SystemMonitor{
   private:
-    const std::map<ComponentType, std::shared_ptr<ComponentMonitor>> monitors;
+    std::map<ComponentType, std::shared_ptr<ComponentMonitor>> monitors;
   public:
-    SystemMonitor(std::shared_ptr<ComponentMonitor> component_monitors, ...);
+    SystemMonitor(const std::vector<std::shared_ptr<ComponentMonitor>> component_monitors);
 
     std::shared_ptr<SystemStatus> Status();
     std::shared_ptr<SystemStatus> Status(std::shared_ptr<SystemStatus> prior_status);

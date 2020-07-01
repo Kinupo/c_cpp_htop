@@ -19,22 +19,22 @@ class ProcessStatus {
   
  public:
   ProcessStatus(
-    const int pid, 
+    int pid, 
     const std::string command,
     const std::shared_ptr<User> owner,
-    const float cpu_utilization,
-    const float memory,
-    const long uptime);
+    float cpu_utilization,
+    float memory,
+    long uptime);
 
-  const int Pid();
+  int Pid();
   const std::string Command();
   
-  std::shared_ptr<User> Owner();
+  const std::shared_ptr<User> Owner();
   
-  const float CpuUtilization();
+  float CpuUtilization();
   //in MB
-  const float Memory();
-  const long  Uptime();
+  float Memory();
+  long  Uptime();
 
   //sort by cpu utilization
   bool operator<(ProcessStatus const& other_process) const;  

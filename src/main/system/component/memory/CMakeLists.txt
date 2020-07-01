@@ -12,5 +12,5 @@ target_sources(
     PRIVATE
         memory_monitor.cpp
         memory_status.cpp
-        ${INCLUDE_PATH}/system/memory/memory_monitor.h
-        ${INCLUDE_PATH}/system/memory/memory_status.h)
+        ${INCLUDE_PATH}/system/component/memory/memory_monitor.h
+        ${INCLUDE_PATH}/system/component/memory/memory_status.h)

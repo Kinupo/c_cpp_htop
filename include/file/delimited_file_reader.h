@@ -21,6 +21,15 @@ class DelimitedFileReader{
             const std::string path,
             const std::string delmiter,
             const std::vector<std::string> keys);
+
+        //returns map <key, mapped row>
+        //key column is used to search a column other than the first column - this is zero indexed
+        //default value if the key is not found is nullptr
+        std::shared_ptr<std::map<std::string, std::vector<std::string>>> MapFile(
+            const std::string path,
+            const std::string delmiter,
+            const std::vector<std::string> keys,
+            const int key_column);
 };
 
 #endif

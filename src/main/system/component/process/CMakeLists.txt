@@ -13,7 +13,7 @@ target_sources(
         process_status.cpp
         processes_status.cpp
         processes_monitor.cpp
-        ${INCLUDE_PATH}/system/process/process_status.h
-        ${INCLUDE_PATH}/system/process/processes_status.h
-        ${INCLUDE_PATH}/system/process/processes_monitor.h
+        ${INCLUDE_PATH}/system/component/process/process_status.h
+        ${INCLUDE_PATH}/system/component/process/processes_status.h
+        ${INCLUDE_PATH}/system/component/process/processes_monitor.h
 )

@@ -1,4 +1,4 @@
-#include "system/operating_system/operating_system_status.h"
+#include "system/component/operating_system/operating_system_status.h"
 
 OperatingSystemStatus::OperatingSystemStatus(
         const std::string name_, 
@@ -8,3 +8,4 @@ OperatingSystemStatus::OperatingSystemStatus(
 
 const std::string OperatingSystemStatus::Name(){return name;}
 const std::string OperatingSystemStatus::KernalVersion(){return kernal_version;}
+ComponentType OperatingSystemStatus::Component(){return componentType;}

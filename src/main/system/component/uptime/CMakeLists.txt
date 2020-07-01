@@ -12,5 +12,5 @@ target_sources(
     PRIVATE
         uptime.cpp
         uptime_monitor.cpp
-        ${INCLUDE_PATH}/system/uptime/uptime.h
-        ${INCLUDE_PATH}/system/uptime/uptime_monitor.h)
+        ${INCLUDE_PATH}/system/component/uptime/uptime.h
+        ${INCLUDE_PATH}/system/component/uptime/uptime_monitor.h)

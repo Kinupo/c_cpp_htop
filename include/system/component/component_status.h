@@ -5,7 +5,7 @@
 //Interface for componet status
 class ComponentStatus{
     public:
-        virtual const ComponentType Component() = 0;
+        virtual ComponentType Component() = 0;
 };
 
 #endif

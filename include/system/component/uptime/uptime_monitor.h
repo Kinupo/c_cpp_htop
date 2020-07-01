@@ -7,12 +7,12 @@
 
 #include <memory>
 
-class UptimeMonitor : public StatusMonitor<std::unique_ptr<Uptime>>, ComponentMonitor{
+class UptimeMonitor : public ComponentMonitor{
     private:
         const ComponentType componentType = kUptime;
     public:
-        std::unique_ptr<Uptime> status();
-        std::unique_ptr<Uptime> status(std::unique_ptr<Uptime>);
+        std::shared_ptr<ComponentStatus> Status();
+        std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status);
         ComponentType ComponentMonitored();
 };
 

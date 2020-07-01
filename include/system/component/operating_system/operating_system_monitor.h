@@ -10,12 +10,13 @@
 /**
  * Monitors the operating system name and version
  **/
-class OperatingSystemMonitor : public StatusMonitor<std::shared_ptr<OperatingSystemStatus>>, ComponentMonitor{
+class OperatingSystemMonitor : public ComponentMonitor{
     private:
         const ComponentType componentType = kOperatingSystem;
     public:
-        std::shared_ptr<OperatingSystemStatus> Status();
-        std::shared_ptr<OperatingSystemStatus> Status(std::shared_ptr<OperatingSystemStatus> prior_status);
+        OperatingSystemMonitor();
+        std::shared_ptr<ComponentStatus> Status();
+        std::shared_ptr<ComponentStatus> Status(std::shared_ptr<ComponentStatus> prior_status);
         ComponentType ComponentMonitored();
 };
 

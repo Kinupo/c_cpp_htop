@@ -13,11 +13,9 @@ target_sources(
         ${INCLUDE_PATH}/system/monitor_factory.h
         ${INCLUDE_PATH}/system/status/system_monitor.h
         ${INCLUDE_PATH}/terminal_ui/terminal_ui.h
-#       ${INCLUDE_PATH}/system/display/ncurses_display.h
         )
 
-#add_subdirectory(display)
-#add_subdirectory(file)
+add_subdirectory(file)
 add_subdirectory(system)
 add_subdirectory(terminal_ui)
 
@@ -27,13 +25,7 @@ target_link_libraries(
     monitor 
         ${CURSES_LIBRARIES}
         Threads::Threads
-        systemMonitorLib
-        status_monitor_lib
-        operating_system_lib
-        cpu_lib
-        memory_lib
         terminal_lib
-        uptime_lib
-        user_lib
-        processes_monitor_lib
+        system_monitor_lib
+        file_reader_lib
 )

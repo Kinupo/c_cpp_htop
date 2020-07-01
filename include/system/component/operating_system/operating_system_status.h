@@ -14,7 +14,7 @@ class OperatingSystemStatus : public ComponentStatus{
     OperatingSystemStatus(
         const std::string name, 
         const std::string kernal_version);
-    const ComponentType Component();
+    ComponentType Component();
     
     const std::string Name();
     const std::string KernalVersion();

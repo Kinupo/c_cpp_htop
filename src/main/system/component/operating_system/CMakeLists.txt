@@ -12,5 +12,5 @@ target_sources(
     PRIVATE
         operating_system_status.cpp
         operating_system_monitor.cpp
-        ${INCLUDE_PATH}/system/operating_system/operating_system_status.h
-        ${INCLUDE_PATH}/system/operating_system/operating_system_monitor.h)
+        ${INCLUDE_PATH}/system/component/operating_system/operating_system_status.h
+        ${INCLUDE_PATH}/system/component/operating_system/operating_system_monitor.h)
