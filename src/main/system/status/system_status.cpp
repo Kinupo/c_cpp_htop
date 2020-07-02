@@ -2,7 +2,7 @@
 
 SystemStatus::SystemStatus(std::vector<std::shared_ptr<ComponentStatus>> component_statuses){
     for(auto status:component_statuses){
-        statuses.insert(std::make_pair(kCpu, status));
+        statuses.insert(std::make_pair(status->Component(), status));
     }
 }
 

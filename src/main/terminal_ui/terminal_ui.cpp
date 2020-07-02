@@ -1,4 +1,5 @@
 #include "terminal_ui/terminal_ui.h"
+#include "terminal_ui/view/dimension.h"
 
 void TerminalUi::InitilizeTerminal(){
   initscr();      // start ncurses
@@ -25,6 +26,10 @@ WINDOW* TerminalUi::CreateWindow(const int height, const int width, const int y_
         width > 1 ? width -1 : getmaxx(stdscr) -1, //-1: 0 index adjustment
         y_position, 
         x_position);
+}
+
+WINDOW* TerminalUi::CreateWindow(const Dimension dimension){
+    return CreateWindow(dimension.Height(), dimension.Width(), 0, 0);
 }
 
 WINDOW* TerminalUi::CreateWindow(const int height, const int width){

@@ -1,6 +1,8 @@
 #ifndef TERMINAL_UI
 #define TERMINAL_UI
 
+#include "terminal_ui/view/dimension.h"
+
 #include <curses.h>
 
 #include <map>
@@ -18,6 +20,8 @@ class TerminalUi {
         //less than 1 width is adjusted to max
         //less than 1 height is adjusted to max to the botom of the screen from the bottom of the relitive window
         WINDOW* CreateWindowBelow(WINDOW* relitive_window, const int height, const int width);
+
+        WINDOW* CreateWindow(const Dimension dimension);
 };
 
 #endif

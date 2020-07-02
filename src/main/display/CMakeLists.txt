@@ -1,7 +1,16 @@
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIRS} include)/display)
+set(INCLUDE_PATH ${CMAKE_SOURCE_DIR}/include)
 
-add_library(displayLib "format.cpp")
+add_library(display_lib "")
 
-file("src/main/display/format.cpp")
-file("src/main/display/ncurses_display.cpp")
+target_include_directories(
+    display_lib 
+    PUBLIC
+        ${INCLUDE_PATH})
+
+target_sources(
+    display_lib 
+    PRIVATE
+        delimited_file_reader.cpp
+        property_file_reader.cpp
+        ${INCLUDE_PATH}/file/delimited_file_reader.h
+        ${INCLUDE_PATH}/file/property_file_reader.h)
