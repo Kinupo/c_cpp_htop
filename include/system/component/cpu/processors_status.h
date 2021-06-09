@@ -7,16 +7,16 @@
 
 class ProcessorsStatus : public ComponentStatus{
  private:
-    const double idle_time;
-    const double active_time;
-    const ComponentType componentType = kCpu;
+    const float idle_time_;
+    const float active_time_;
+    const ComponentType component_type_ = kCpu;
  public:
-  ProcessorsStatus(const double idle_time, const double active_time);
-  ProcessorsStatus(const double idle_time, const double active_time, std::shared_ptr<ComponentStatus> prior_status);
+  ProcessorsStatus(const float idle_time, const float active_time);
+  ProcessorsStatus(const float idle_time, const float active_time, std::shared_ptr<ComponentStatus> prior_status);
   ComponentType Component();
 
   //Utilization of all cores as a percentage of active time/total time
-  double Utilization();
+  float Utilization();
 };
 
 #endif

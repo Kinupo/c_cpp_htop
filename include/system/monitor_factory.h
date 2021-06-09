@@ -10,14 +10,13 @@
 
 #include <memory>
 
-class MonitorFactory{
-  public:
-    std::shared_ptr<SystemMonitor> BuildSystemMonitor();
-    std::shared_ptr<ProcessesMonitor> BuildProcessesMonitor();
-    std::shared_ptr<OperatingSystemMonitor> BuildOperatingSystemMonitor();
-    std::shared_ptr<ProcessorsMonitor> BuildProcessorsMonitor();
-    std::shared_ptr<MemoryMonitor> BuildMemoryMonitor();
-    std::shared_ptr<UptimeMonitor> BuildUptimeMonitor();
+namespace MonitorFactory{
+    std::unique_ptr<SystemMonitor> BuildSystemMonitor();
+    std::unique_ptr<ProcessesMonitor> BuildProcessesMonitor();
+    std::unique_ptr<OperatingSystemMonitor> BuildOperatingSystemMonitor();
+    std::unique_ptr<ProcessorsMonitor> BuildProcessorsMonitor();
+    std::unique_ptr<MemoryMonitor> BuildMemoryMonitor();
+    std::unique_ptr<UptimeMonitor> BuildUptimeMonitor();
 };
 
 #endif

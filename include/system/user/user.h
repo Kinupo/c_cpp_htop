@@ -5,8 +5,8 @@
 
 class User{
     private:
-        const int id;
-        const std::string name;
+        const int id_;
+        const std::string name_;
     public:
         User(const int id, const std::string name);
         int Id();

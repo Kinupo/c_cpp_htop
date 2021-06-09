@@ -12,9 +12,9 @@
 
 class SystemMonitor{
   private:
-    std::map<ComponentType, std::shared_ptr<ComponentMonitor>> monitors;
+    std::map<ComponentType, std::unique_ptr<ComponentMonitor>> monitors_;
   public:
-    SystemMonitor(const std::vector<std::shared_ptr<ComponentMonitor>> component_monitors);
+    SystemMonitor(std::vector<std::unique_ptr<ComponentMonitor>> &component_monitors);
 
     std::shared_ptr<SystemStatus> Status();
     std::shared_ptr<SystemStatus> Status(std::shared_ptr<SystemStatus> prior_status);

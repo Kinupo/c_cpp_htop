@@ -10,7 +10,7 @@
 
 class SystemStatus{
     private:
-        std::map<ComponentType,std::shared_ptr<ComponentStatus>> statuses;
+        std::map<ComponentType,std::shared_ptr<ComponentStatus>> statuses_;
     public:
         SystemStatus(std::vector<std::shared_ptr<ComponentStatus>> component_statuses);
         const std::shared_ptr<ComponentStatus> Component(const ComponentType component);

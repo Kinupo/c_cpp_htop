@@ -5,11 +5,12 @@
 
 class Uptime : public ComponentStatus{
     private:
-        const float uptime;
-        const ComponentType componentType = kUptime;
+        const float uptime_;
+        const ComponentType component_type_ = kUptime;
     public:
         Uptime(const float uptime);
         ComponentType Component();
+        float Seconds();
 };
 
 #endif

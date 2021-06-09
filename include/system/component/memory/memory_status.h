@@ -5,9 +5,9 @@
 
 class MemoryStatus : public ComponentStatus{
     private:
-        const int total;
-        const int used;
-        const ComponentType componentType = kMemory;
+        const int total_;
+        const int used_;
+        const ComponentType componentType_ = kMemory;
     public:
         MemoryStatus(const int total, const int used);
         ComponentType Component();
