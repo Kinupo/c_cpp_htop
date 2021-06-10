@@ -74,7 +74,7 @@ std::shared_ptr<ComponentStatus> ProcessesMonitor::Status(){
         } catch(std::runtime_error e){//skip error if the process has ended before processing
             if(std::string(e.what()).find("could not be oppened by FileReader") == std::string::npos)
                 throw e;
-        }
+        } catch (std::out_of_range e){} //skip because the process has ended resulting in nonsense data
     }
 
     auto unparsed_process_counts = FileReader::ReadLines(kProcStatPath, keys_);
