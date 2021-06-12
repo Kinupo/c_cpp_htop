@@ -16,11 +16,13 @@ target_sources(
     PRIVATE
         main.cpp
         format.cpp 
+        linux_parser.cpp 
         ncurses_display.cpp 
         process.cpp 
         system.cpp 
         processor.cpp 
         ${INCLUDE_PATH}/format.h
+        ${INCLUDE_PATH}/linux_parser.h
         ${INCLUDE_PATH}/ncurses_display.h 
         ${INCLUDE_PATH}/process.h 
         ${INCLUDE_PATH}/system.h 

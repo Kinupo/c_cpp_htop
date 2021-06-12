@@ -4,7 +4,6 @@
 #include <memory>
 #include <unistd.h>
 #include <filesystem>
-// #include <experimental/filesystem>
 #include <stdexcept>
 
 #include "system/status_monitor.h"
@@ -45,7 +44,7 @@ class ProcessesMonitor : public ComponentMonitor{
         bool isNumber(std::string string);
         std::shared_ptr<std::vector<std::string>> FindActiveProcessDirectories();
         std::shared_ptr<ProcessStatus> FindProcessDetails(const std::string process, const int system_up_time);
-        
+        void FindProcessTimes(const std::string process_path, const int system_up_time, int process_times[2]);
 
     public:
         std::shared_ptr<ComponentStatus> Status();

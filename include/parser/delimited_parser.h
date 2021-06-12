@@ -8,13 +8,13 @@
 
 namespace DelimitedParser {
     std::unique_ptr<std::vector<std::string>> ParseLine(
-        const std::string line, 
-        const char delimiter);
+        const std::string &line, 
+        const char &delimiter);
     std::unique_ptr<std::vector<std::string>> ParseTrimKey(
-        const std::string key, 
-        const std::string unparsed_string,
-        const char delimiter);
-    std::string Trim(const std::string string_to_trim);
+        const std::string &key, 
+        const std::string &unparsed_string,
+        const char &delimiter);
+    std::string Trim(const std::string &string_to_trim);
 };
 
 #endif

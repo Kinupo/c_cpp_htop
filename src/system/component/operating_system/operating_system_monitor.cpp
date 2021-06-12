@@ -17,6 +17,15 @@ std::string OperatingSystemMonitor::FindVersion(){
     return version;
 }
 
+std::string RemoveQuotes(std::string &quoted_string){
+    auto first_quote = quoted_string.find_first_of("\"");
+    auto second_quote = quoted_string.find_last_of("\"");
+    std::string updated_string = quoted_string;
+    if(first_quote != std::string::npos && second_quote != std::string::npos)
+        updated_string = quoted_string.substr(first_quote, second_quote);
+    return updated_string;
+}
+
 std::string OperatingSystemMonitor::FindOsName(){
     
     std::string pretty_name;

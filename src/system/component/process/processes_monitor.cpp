@@ -11,12 +11,41 @@ bool ProcessesMonitor::isNumber(std::string string){
 
 int ProcessesMonitor::ParseUid(const std::string unparsed_status){
     auto parsed_uid = DelimitedParser::ParseTrimKey(kKeyUid, unparsed_status, ' ');
-    return std::stoi((*parsed_uid).at(0));
+    if(parsed_uid->size() > 0)
+        return std::stoi(parsed_uid->at(0));
+    return 0;
 }
 
 float ProcessesMonitor::ParseMemoryUsage(const std::string unparsed_status){
     auto parsed_memory = DelimitedParser::ParseTrimKey(kKeyMemoryUsage, unparsed_status, ' ');
-    return std::stof((*parsed_memory).at(0))/kKbInMb;
+    float memory = 0.0;
+    try {
+        if(parsed_memory->size() > 0)
+            memory = std::stof(parsed_memory->at(0))/kKbInMb;
+    } catch (std::invalid_argument e) {}
+    return memory;
+}
+
+void ProcessesMonitor::FindProcessTimes(
+    const std::string process_path, 
+    const int system_up_time, 
+    int process_times[2]){
+
+    auto unparsed_stat = FileReader::ReadAllLines(process_path + kProcessStatPath);
+    if(unparsed_stat->size() > 0){
+        auto parsed_stat = DelimitedParser::ParseLine(unparsed_stat->at(0), ' ');
+        if(parsed_stat->size() > 22){
+            auto start_time = std::stoi(parsed_stat->at(kColumnStartTime));
+            auto user_time = std::stoi(parsed_stat->at(kColumnUserTime));
+            auto system_time = std::stoi(parsed_stat->at(kColumnSystemTime));
+
+            auto total_time = user_time + system_time;
+            auto process_up_time = system_up_time - (start_time/kTicksPerSecond);
+
+            process_times[0] = process_up_time;
+            process_times[1] = total_time;
+        }
+    }
 }
 
 std::shared_ptr<ProcessStatus> ProcessesMonitor::FindProcessDetails(
@@ -27,23 +56,20 @@ std::shared_ptr<ProcessStatus> ProcessesMonitor::FindProcessDetails(
     auto unparsed_status 
         = FileReader::ReadLines(process_path + kProcessStatusPath, process_keys_);
     
-    auto unparsed_stat = FileReader::ReadAllLines(process_path + kProcessStatPath);
-    auto parsed_stat = DelimitedParser::ParseLine(unparsed_stat->at(0), ' ');
-    
-    auto start_time = std::stoi(parsed_stat->at(kColumnStartTime));
-    auto user_time = std::stoi(parsed_stat->at(kColumnUserTime));
-    auto system_time = std::stoi(parsed_stat->at(kColumnSystemTime));
+    auto raw_cmd = FileReader::ReadAllLines(process_path + kProcessCommandPath);
+    auto cmd = raw_cmd->size() > 0 ? raw_cmd->at(0): "";
 
-    auto total_time = user_time + system_time;
-    auto process_up_time = system_up_time - (start_time/kTicksPerSecond);
+    int process_times[2];
+    FindProcessTimes(process_path, system_up_time,  process_times);
+    auto cpu_utilization = (((float)(process_times[1]/(float)kTicksPerSecond)/((float)process_times[0])));
 
     return std::make_shared<ProcessStatus>(
         std::stoi(process), 
-        FileReader::ReadAllLines(process_path +  kProcessCommandPath).get()->at(0), 
+        cmd, 
         ParseUid((*unparsed_status)[kKeyUid]), 
-        (((float)(total_time/(float)kTicksPerSecond)/((float)process_up_time))),
+        cpu_utilization,
         ParseMemoryUsage((*unparsed_status)[kKeyMemoryUsage]), 
-        process_up_time);
+        process_times[0]);
 }
 
 std::shared_ptr<std::vector<std::string>> ProcessesMonitor::FindActiveProcessDirectories(){
@@ -51,7 +77,6 @@ std::shared_ptr<std::vector<std::string>> ProcessesMonitor::FindActiveProcessDir
     std::shared_ptr<std::vector<std::string>> process_directories 
         = std::make_shared<std::vector<std::string>>();
     auto directory_listing = std::filesystem::directory_iterator(kProcPath);
-    // std::experimental::filesystem::directory_iterator(kProcPath);
     for(auto directory:directory_listing){
         auto directory_name = directory.path().filename();
         if(directory.is_directory() && isNumber(directory.path().filename()))
@@ -74,7 +99,7 @@ std::shared_ptr<ComponentStatus> ProcessesMonitor::Status(){
         } catch(std::runtime_error e){//skip error if the process has ended before processing
             if(std::string(e.what()).find("could not be oppened by FileReader") == std::string::npos)
                 throw e;
-        } catch (std::out_of_range e){} //skip because the process has ended resulting in nonsense data
+        }
     }
 
     auto unparsed_process_counts = FileReader::ReadLines(kProcStatPath, keys_);

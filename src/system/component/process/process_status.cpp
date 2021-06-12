@@ -23,7 +23,10 @@ const std::string ProcessStatus::Command() { return command_; }
 
 std::string ProcessStatus::Memory() { 
   auto memory = std::to_string(memory_);
-  return memory.substr(0, memory.find(".") + 2); 
+  auto decimal_pos = memory.find(".");
+  if(decimal_pos != std::string::npos)
+    return memory.substr(0, decimal_pos + 2); 
+  return "0.00";
 }
 
 int ProcessStatus::OwnerId() { return owner_id_; }

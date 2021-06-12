@@ -12,7 +12,7 @@
 #include "system.h"
 
 namespace NCursesDisplay {
-    void Display(System& system, int max_process_num = 10);
+    void Display(System& system);
     void DisplaySystem(System& system, WINDOW* window);
     void DisplayProcesses(std::vector<Process>& processes, WINDOW* window, int n);
     std::string ProgressBar(float percent);

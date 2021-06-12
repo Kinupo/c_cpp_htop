@@ -9,8 +9,6 @@ class ProcessorsStatus : public ComponentStatus{
  private:
     const float idle_time_;
     const float active_time_;
-    const float prior_idle_time_;
-    const float prior_active_time_;
     const ComponentType component_type_ = kCpu;
  public:
   ProcessorsStatus(const float idle_time, const float active_time);
