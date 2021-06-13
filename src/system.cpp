@@ -5,7 +5,10 @@ System::System(){
 }
 
 void System::CacheStatus(){
-    current_status_ = system_monitor_->Status(current_status_);
+    if(current_status_ == nullptr)
+        current_status_ = system_monitor_->Status();
+    else
+         current_status_ = system_monitor_->Status(current_status_);
 }
 
 // TODO: Return the system's CPU
@@ -22,10 +25,10 @@ std::vector<Process>& System::Processes() {
     auto processor_status = dynamic_cast<ProcessesStatus*>(component_status.get());
 
     auto running_processes = processor_status->RunningProcesses();
-    
+
     processes_.clear();
     for(auto process:running_processes){
-        auto display_process = new Process(
+        Process display_process(
             process->Pid(),
             user_repo_.FindUser(process->OwnerId())->Name(),
             process->Command(),
@@ -33,7 +36,7 @@ std::vector<Process>& System::Processes() {
             process->Memory(),
             process->UpTime()
             );
-        processes_.push_back(*display_process);
+        processes_.push_back(display_process);
     }
 
     std::sort(processes_.begin(), processes_.end());
