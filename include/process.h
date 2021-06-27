@@ -2,6 +2,7 @@
 #define PROCESS_H
 
 #include <unistd.h>
+
 #include <cctype>
 #include <sstream>
 #include <string>
@@ -12,7 +13,8 @@ It contains relevant attributes as shown below
 */
 class Process {
  public:
-  Process(int pid, std::string user, std::string command, float cpu_utilization, std::string ram, long int up_time);
+  Process(int pid, std::string user, std::string command, float cpu_utilization,
+          std::string ram, long int up_time);
   int Pid();                               // TODO: See src/process.cpp
   std::string User();                      // TODO: See src/process.cpp
   std::string Command();                   // TODO: See src/process.cpp
@@ -23,12 +25,12 @@ class Process {
 
   // TODO: Declare any necessary private members
  private:
-    int pid_;
-    std::string user_;
-    std::string command_;
-    float cpu_utilization_;
-    std::string ram_;
-    long int up_time_;
+  int pid_;
+  std::string user_;
+  std::string command_;
+  float cpu_utilization_;
+  std::string ram_;
+  long int up_time_;
 };
 
 #endif

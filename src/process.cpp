@@ -1,19 +1,13 @@
 #include "process.h"
 
-Process::Process(
-    int pid, 
-    std::string user, 
-    std::string command, 
-    float cpu_utilization, 
-    std::string ram, 
-    long int up_time)
-:pid_(pid), 
- user_(user), 
- command_(command),
- cpu_utilization_(cpu_utilization),
- ram_(ram),
- up_time_(up_time)
-{};
+Process::Process(int pid, std::string user, std::string command,
+                 float cpu_utilization, std::string ram, long int up_time)
+    : pid_(pid),
+      user_(user),
+      command_(command),
+      cpu_utilization_(cpu_utilization),
+      ram_(ram),
+      up_time_(up_time){};
 
 // TODO: Return this process's ID
 int Process::Pid() { return pid_; }
@@ -35,6 +29,6 @@ long int Process::UpTime() { return up_time_; }
 
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& other_process) const { 
-    return  other_process.cpu_utilization_ < cpu_utilization_;
+bool Process::operator<(Process const& other_process) const {
+  return other_process.cpu_utilization_ < cpu_utilization_;
 }

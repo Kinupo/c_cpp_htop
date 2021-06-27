@@ -7,9 +7,8 @@ SystemMonitor::SystemMonitor(std::vector<std::unique_ptr<ComponentMonitor>> &com
 
 std::shared_ptr<SystemStatus> SystemMonitor::Status(){
     std::vector<std::shared_ptr<ComponentStatus>> component_statuses;
-    for(auto &monitor:monitors_){
+    for(auto &monitor:monitors_)
         component_statuses.push_back(monitor.second->Status());
-    }
     return std::make_shared<SystemStatus>(component_statuses);
 }
 

@@ -7,7 +7,7 @@ class Processor {
   void Utilization(const float utilization);
   // TODO: Declare any necessary private members
  private:
-    float utilization_;
+  float utilization_;
 };
 
 #endif

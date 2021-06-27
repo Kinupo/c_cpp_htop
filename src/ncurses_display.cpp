@@ -31,20 +31,16 @@ void NCursesDisplay::DisplaySystem(System& system, WINDOW* window) {
   mvwprintw(window, row, 10, "");
   wprintw(window, ProgressBar(system.MemoryUtilization()).c_str());
   wattroff(window, COLOR_PAIR(1));
-  mvwprintw(window, ++row, 2,
-            "Total Processes: %d", system.TotalProcesses());
-  mvwprintw(
-      window, ++row, 2,
-      "Running Processes: %d", system.RunningProcesses());
+  mvwprintw(window, ++row, 2, "Total Processes: %d", system.TotalProcesses());
+  mvwprintw(window, ++row, 2, "Running Processes: %d",
+            system.RunningProcesses());
   mvwprintw(window, ++row, 2,
             ("Up Time: " + Format::ElapsedTime(system.UpTime())).c_str());
   wrefresh(window);
 }
 
-void NCursesDisplay::DisplayProcesses(
-    std::vector<Process>& processes,
-    WINDOW* window, 
-    int max_rows) {
+void NCursesDisplay::DisplayProcesses(std::vector<Process>& processes,
+                                      WINDOW* window, int max_rows) {
   wclear(window);
   int row{0};
   int const pid_column{2};
@@ -61,17 +57,20 @@ void NCursesDisplay::DisplayProcesses(
   mvwprintw(window, row, time_column, "TIME+");
   mvwprintw(window, row, command_column, "COMMAND");
   wattroff(window, COLOR_PAIR(2));
-  int const num_processes = int(processes.size()) > max_rows ? max_rows : processes.size();
-  int end_of_user_field = (cpu_column-1) - user_column;
-  int end_of_cmd_field = (window->_maxx) -  command_column;
-  
+  int const num_processes =
+      int(processes.size()) > max_rows ? max_rows : processes.size();
+  int end_of_user_field = (cpu_column - 1) - user_column;
+  int end_of_cmd_field = (window->_maxx) - command_column;
+
   for (int i = 0; i < num_processes; ++i) {
     wmove(window, ++row, pid_column);
-    mvwprintw(window, row, pid_column, std::to_string(processes[i].Pid()).c_str());
-    mvwprintw(window, row, user_column, 
-      processes[i].User().substr(0, end_of_user_field).c_str());
+    mvwprintw(window, row, pid_column,
+              std::to_string(processes[i].Pid()).c_str());
+    mvwprintw(window, row, user_column,
+              processes[i].User().substr(0, end_of_user_field).c_str());
     float cpu = processes[i].CpuUtilization() * 100;
-    mvwprintw(window, row, cpu_column, std::to_string(cpu).substr(0, 4).c_str());
+    mvwprintw(window, row, cpu_column,
+              std::to_string(cpu).substr(0, 4).c_str());
     mvwprintw(window, row, ram_column, processes[i].Ram().c_str());
     mvwprintw(window, row, time_column,
               Format::ElapsedTime(processes[i].UpTime()).c_str());
@@ -81,7 +80,6 @@ void NCursesDisplay::DisplayProcesses(
 }
 
 void NCursesDisplay::Display(System& system) {
-
   initscr();      // start ncurses
   noecho();       // do not print input values
   cbreak();       // terminate ncurses on ctrl + c
@@ -97,11 +95,11 @@ void NCursesDisplay::Display(System& system) {
   auto sleep_time = std::chrono::seconds(1);
 
   while (1) {
-
     system.CacheStatus();
 
     DisplaySystem(system, system_window);
-    DisplayProcesses(system.Processes(), process_window, process_window->_maxy - process_window->_begy);
+    DisplayProcesses(system.Processes(), process_window,
+                     process_window->_maxy - process_window->_begy);
 
     box(system_window, 0, 0);
     box(process_window, 0, 0);
