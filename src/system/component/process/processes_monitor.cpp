@@ -76,10 +76,18 @@ std::shared_ptr<std::vector<std::string>> ProcessesMonitor::FindActiveProcessDir
     
     std::shared_ptr<std::vector<std::string>> process_directories 
         = std::make_shared<std::vector<std::string>>();
-    auto directory_listing = std::filesystem::directory_iterator(kProcPath);
+    #if __cplusplus == 201703L
+        auto directory_listing = std::filesystem::directory_iterator(kProcPath);
+    #else
+        auto directory_listing = std::experimental::filesystem::directory_iterator(kProcPath);
+    #endif
     for(auto directory:directory_listing){
         auto directory_name = directory.path().filename();
-        if(directory.is_directory() && isNumber(directory.path().filename()))
+        if(
+            #if __cplusplus == 201703L
+                directory.is_directory() &&
+            #endif
+            isNumber(directory.path().filename()))
             process_directories->push_back(directory.path().filename());
     }
     return process_directories;

@@ -3,7 +3,13 @@
 
 #include <memory>
 #include <unistd.h>
-#include <filesystem>
+
+#if __cplusplus == 201703L
+    #include <filesystem>
+#else
+    #include <experimental/filesystem>
+#endif
+
 #include <stdexcept>
 
 #include "system/status_monitor.h"

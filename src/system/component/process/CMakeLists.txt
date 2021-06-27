@@ -22,4 +22,5 @@ target_link_libraries(
     processes_monitor_lib 
         parser_lib
         file_reader_lib
+        -lstdc++fs
 )
